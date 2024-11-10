@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="home.css" rel="stylesheet" />
+    <script src="home.js"></script>
+</head>
+<body dir="rtl">
+    <div>לכניסה</div>
+    <input class="emailLogin" type="email" placeholder="שם משתמש"/></br>
+    <input class="passwordLogin" type="password" placeholder="סיסמה"/></br>
+    <button onclick="login()">התחברות</button>
+
+    <button onclick="visibleElement()">להרשמה</button>
+    <div class="unVisible">
+        <input class="email" type="email" placeholder="שם משתמש" /></br>
+        <input onblur="checkPassword()" class="password"  type="password" placeholder="סיסמה" /></br>
+        <input class="firstName"  type="text" placeholder="שם"/></br>
+        <input class="lastName"  type="text" min="2" maxlength="20" placeholder="שם משפחה"/></br>
+        <button onclick="registerUser()">רישום</button>
+
+    </div>
+
+</body>
+</html>
