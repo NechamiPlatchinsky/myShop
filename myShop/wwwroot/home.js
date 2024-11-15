@@ -83,7 +83,7 @@ const updateDitailse = async() => {
     try {
         const responsePut = await fetch(`api/users/${sessionStorage.getItem("user")}`, {
             method: 'PUT',
-            headers: {
+            headers: { 
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(user)
@@ -128,3 +128,4 @@ const viewLevel = (dataPost) => {
     const password = document.querySelector(".level")
     password.value =dataPost
 }
+/////sdddddddddddd
