@@ -98,6 +98,7 @@ const updateDitailse = async() => {
         console.log(error)
     }
 }
+//aaaaaaaaaaaaaaaaaaaaaaaaa
 const checkPassword = async() => {
     const password = getPassword();
     try {
@@ -121,5 +122,7 @@ const checkPassword = async() => {
     }
 }
 const viewLevel = (dataPost) => {
-    
+    const password = document.querySelector(".level")
+    password.value =dataPost
+ /////51111111111111111
 }

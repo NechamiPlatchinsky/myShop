@@ -34,12 +34,21 @@ namespace myShop.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody] User newUser)
         {
-            userServices.addUser(newUser);
-            return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
+            int num = userServices.checkPassword(newUser.Password);
+            if (num >= 2)
+            {
+                userServices.addUser(newUser);
+                return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
+            }
+            else
+            {
+                return BadRequest();
+            }
 
 
         }
-
+        //iii
+        //iiii
         [HttpPost]
         [Route("login")]
         public ActionResult<User> PostLogin([FromQuery] string Email,string Password)
