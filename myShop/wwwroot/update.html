@@ -11,7 +11,7 @@
     <button onclick="visibleElement()">לעדכון הפרטים</button>
     <div class="unVisible">
         <input class="email" type="email" placeholder="שם משתמש" /></br>
-        <input class="password" type="password" placeholder="סיסמה" /><progress value="2" max="4"></progress></br>
+        <input onblur="checkPassword()" class="password" type="password" placeholder="סיסמה" /><progress class="level" value="0" max="4"></progress></br>
         <input class="firstName" type="text" placeholder="שם" /></br>
         <input class="lastName" type="text" min="2" maxlength="20" placeholder="שם משפחה" /></br>
         <button onclick="updateDitailse()">עידכון</button>

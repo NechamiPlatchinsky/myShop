@@ -33,6 +33,7 @@ namespace Reposetories
             }
             return null;
         }
+
         public void updateUser(int id, User updateUser)
         {
             updateUser.UserId = id;

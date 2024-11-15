@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Entities
-{/
+{
     public class User
     {
         [EmailAddress(ErrorMessage = "כתובת מייל לא תקינה"), Required]

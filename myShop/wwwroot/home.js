@@ -88,17 +88,20 @@ const updateDitailse = async() => {
             },
             body: JSON.stringify(user)
         })
-        alert("הפרטים עודכנו במערכת")
-        const dataPut = await responsePut.json();
-        console.log(dataPut)
-        sessionStorage.setItem('user', dataPost.userId)
         
+        //const dataPut = await responsePut.json();
+        //console.log(dataPut)
+        //sessionStorage.setItem('user', dataPost.userId)
+        if (!responsePut.ok)
+            alert("משהו השתבש")
+        else
+            alert("הפרטים עודכנו במערכת ")
     }
     catch (error) {
         console.log(error)
+        
     }
 }
-//aaaaaaaaaaaaaaaaaaaaaaaaa
 const checkPassword = async() => {
     const password = getPassword();
     try {
@@ -124,5 +127,4 @@ const checkPassword = async() => {
 const viewLevel = (dataPost) => {
     const password = document.querySelector(".level")
     password.value =dataPost
- /////51111111111111111
 }

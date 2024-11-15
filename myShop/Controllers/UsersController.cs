@@ -67,9 +67,22 @@ namespace myShop.Controllers
         }
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User updateUser)
+        public ActionResult<string> Put(int id, [FromBody] User updateUser)
         {
-            userServices.updateUser(id,updateUser);
+            
+                
+            int num = userServices.checkPassword(updateUser.Password);
+            if (num >= 2|| updateUser.Password == "")
+            {
+                userServices.updateUser(id, updateUser);
+                return Ok();
+            }
+            else
+            {
+                 return BadRequest("קוד לא תקין");
+            }
+
+            
 
 
         }
