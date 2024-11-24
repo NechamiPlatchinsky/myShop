@@ -34,7 +34,7 @@ namespace myShop.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody] User newUser)
         {
-            int num = userServices.checkPassword(newUser.Password);
+            int num = userServices.checkPassword(newUser.Password);//not here, in services
             if (num >= 2)
             {
                 userServices.addUser(newUser);
@@ -71,7 +71,7 @@ namespace myShop.Controllers
         {
             
                 
-            int num = userServices.checkPassword(updateUser.Password);
+            int num = userServices.checkPassword(updateUser.Password);//not here, in services
             if (num >= 2|| updateUser.Password == "")
             {
                 userServices.updateUser(id, updateUser);

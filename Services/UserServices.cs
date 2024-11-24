@@ -19,6 +19,7 @@ namespace Services
         }
         public void addUser(User newUser)
         {
+            //check password strength
             userReposetory.addUser(newUser);
         }
         public User getUserToLogin(string Email, string Password)
@@ -27,6 +28,7 @@ namespace Services
         }
         public void updateUser(int id, User updateUser)
         {
+            //check password strength
             userReposetory.updateUser(id, updateUser);
         }
         public int checkPassword(string password)
