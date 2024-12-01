@@ -6,7 +6,7 @@ namespace Services
     {
         void addUser(User newUser);
         int checkPassword(string password);
-        User getUserToLogin(string Email, string Password);
-        void updateUser(int id, User updateUser);
+        Task<User> getUserToLogin(string Email, string Password);
+        Task updateUser(int id, User updateUser);
     }
 }

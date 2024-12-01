@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Zxcvbn;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -21,11 +22,11 @@ namespace Services
         {
             userReposetory.addUser(newUser);
         }
-        public User getUserToLogin(string Email, string Password)
+        public async Task<User> getUserToLogin(string Email, string Password)
         {
-            return userReposetory.getUserToLogin(Email, Password);
+            return await userReposetory.getUserToLogin(Email, Password);
         }
-        public void updateUser(int id, User updateUser)
+        public async Task updateUser(int id, User updateUser)
         {
             userReposetory.updateUser(id, updateUser);
         }

@@ -59,7 +59,7 @@ const login = async () => {
         return alert("כל השדות חובה");
     }
     try {
-        const responsePost = await fetch(`api/users/login/?Email=${user.Email}&Password=${user.Password}`, {
+        const responsePost =  await fetch(`api/users/login/?Email=${user.Email}&Password=${user.Password}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

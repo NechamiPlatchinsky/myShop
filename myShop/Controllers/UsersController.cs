@@ -51,9 +51,9 @@ namespace myShop.Controllers
         //iiii
         [HttpPost]
         [Route("login")]
-        public ActionResult<User> PostLogin([FromQuery] string Email,string Password)
+        public async Task<ActionResult <User>> PostLogin([FromQuery] string Email,string Password)
         {
-            User user = userServices.getUserToLogin(Email, Password);
+            User user =await userServices.getUserToLogin(Email, Password);
             if(user!=null)
                 return Ok(user);
             return NoContent();
