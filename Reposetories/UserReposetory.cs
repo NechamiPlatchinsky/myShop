@@ -29,7 +29,7 @@ namespace Reposetories
         public async Task<User> getUserToLogin(string Email, string Password)
         {
             //using (StreamReader reader = System.IO.File.OpenText("M:/web api/myShop/myShop/FileUser.txt"))
-            //{
+            //{//
 
             //    string? currentUserInFile;
             //    while ((currentUserInFile = reader.ReadLine()) != null)
