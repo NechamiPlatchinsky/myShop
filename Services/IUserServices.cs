@@ -4,7 +4,7 @@ namespace Services
 {
     public interface IUserServices
     {
-        void addUser(User newUser);
+        Task addUser(User newUser);
         int checkPassword(string password);
         Task<User> getUserToLogin(string Email, string Password);
         Task updateUser(int id, User updateUser);

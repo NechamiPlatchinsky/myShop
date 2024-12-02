@@ -32,12 +32,12 @@ namespace myShop.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User newUser)
+        public async Task<ActionResult<User>> Post([FromBody] User newUser)
         {
             int num = userServices.checkPassword(newUser.Password);
             if (num >= 2)
             {
-                userServices.addUser(newUser);
+                await userServices.addUser(newUser);
                 return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
             }
             else

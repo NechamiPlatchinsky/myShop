@@ -18,9 +18,9 @@ namespace Services
         {
             userReposetory = _userReposetory;
         }
-        public void addUser(User newUser)
+        public async Task addUser(User newUser)
         {
-            userReposetory.addUser(newUser);
+            await userReposetory.addUser(newUser);
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {
