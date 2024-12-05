@@ -44,6 +44,8 @@ const registerUser = async () => {
             },
             body: JSON.stringify(newUser)
         })
+        //if status==400
+        //week password
         if (!responsePost.ok)
            return alert("משהו השתבש")
             alert("נוסף בהצלחה")
@@ -92,6 +94,8 @@ const updateDitailse = async() => {
         //const dataPut = await responsePut.json();
         //console.log(dataPut)
         //sessionStorage.setItem('user', dataPost.userId)
+        //if status==400
+        //week password
         if (!responsePut.ok)
             alert("משהו השתבש")
         else
