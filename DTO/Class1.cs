@@ -1,4 +1,4 @@
-﻿namespace Reposetories
+﻿namespace DTO
 {
     public class Class1
     {

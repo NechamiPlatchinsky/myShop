@@ -18,9 +18,9 @@ namespace Services
         {
             userReposetory = _userReposetory;
         }
-        public async Task addUser(User newUser)
+        public async Task<User> addUser(User newUser)
         {
-            await userReposetory.addUser(newUser);
+            return await userReposetory.addUser(newUser);
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {
@@ -34,6 +34,10 @@ namespace Services
         {
             var result = Zxcvbn.Core.EvaluatePassword(password);
             return result.Score;
+        }
+        public async Task<User> getUserById(int id)
+        {
+            return await userReposetory.getUserById(id);
         }
     }
 }

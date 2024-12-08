@@ -5,11 +5,13 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "myShop", "myShop\myShop.csproj", "{4C5F5659-7389-4CEE-A561-BB9762A7928B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{B7BAD0DB-EEC9-4416-A247-08B498B0032F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{B7BAD0DB-EEC9-4416-A247-08B498B0032F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reposetories", "Reposetories\Reposetories.csproj", "{D66FD0B4-64E3-4AA6-925D-69CE51834D76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reposetories", "Reposetories\Reposetories.csproj", "{D66FD0B4-64E3-4AA6-925D-69CE51834D76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{2D8B7B6A-B84F-47C3-9736-547D4081CDAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{2D8B7B6A-B84F-47C3-9736-547D4081CDAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{FA93371A-EDB7-4D46-9CF7-F2021948C49B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2D8B7B6A-B84F-47C3-9736-547D4081CDAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D8B7B6A-B84F-47C3-9736-547D4081CDAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D8B7B6A-B84F-47C3-9736-547D4081CDAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA93371A-EDB7-4D46-9CF7-F2021948C49B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA93371A-EDB7-4D46-9CF7-F2021948C49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA93371A-EDB7-4D46-9CF7-F2021948C49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA93371A-EDB7-4D46-9CF7-F2021948C49B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
