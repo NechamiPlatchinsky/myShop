@@ -20,18 +20,19 @@ namespace Reposetories
             myShopDBContext = _myShopDBContext;
         }
 
-        public async Task addUser(User newUser)
+        public async Task addUser(User newUser)//return created user!!!
         {
-
+            //var res=await myShopDBContext.Users.AddAsync(newUser);
             await myShopDBContext.Users.AddAsync(newUser);
             await myShopDBContext.SaveChangesAsync();
+            //return res- the created user with the id
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {
            return await myShopDBContext.Users.FirstOrDefaultAsync(user => user.Email == Email && user.Password == Password);
         }
 
-        public async Task updateUser(int id, User updateUser)
+        public async Task updateUser(int id, User updateUser)//return user
         {
             updateUser.UserId = id;
             myShopDBContext.Users.Update(updateUser);
