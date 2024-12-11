@@ -17,7 +17,7 @@ builder.Services.AddScoped<ICategoryReposetory, CategoryReposetory>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddScoped<IOrderReposetory, OrderReposetory>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
-
+SS
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
