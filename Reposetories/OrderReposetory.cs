@@ -18,13 +18,13 @@ namespace Reposetories
         }
         public async Task<Order> addOrder(Order newOrder)
         {
-            await orderContext.AddAsync(newOrder);
+            await orderContext.Orders.AddAsync(newOrder);
             await orderContext.SaveChangesAsync();
             return newOrder;
         }
         public async Task<Order> getOrderById(int id)
         {
-            return await orderContext.Orders.FirstOrDefaultAsync(order=>order.OrderId==id);
+            return await orderContext.Orders.Include(o=>o.User).FirstOrDefaultAsync(order=>order.User.UserId==id);
         }
     }
 }

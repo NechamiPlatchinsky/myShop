@@ -17,11 +17,11 @@ namespace Reposetories
         }
         public async Task<List<Product>> getAllProduct()
         {
-            return await productDBContext.Products.ToListAsync();
+            return await productDBContext.Products.Include(a => a.Category).ToListAsync();
         }
         public async Task<Product> getProductById(int id)
         {
-            return await productDBContext.Products.FirstOrDefaultAsync(product => product.Id == id);
+            return await productDBContext.Products.Include(a=>a.Category).FirstOrDefaultAsync(product => product.Id == id);
         }
     }
 }

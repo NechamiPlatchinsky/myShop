@@ -40,8 +40,14 @@ namespace myShop.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> Post([FromBody] Order newOrder)
         {
-            await orderService.addOrder(newOrder);
-            return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
+            try
+            {
+                await orderService.addOrder(newOrder);
+                return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
+            }catch(Exception ex)
+            {
+                throw new Exception("" + ex);
+            }
             //Order order = await orderService.addOrder(newOrder);
             //OrderDTO orderDTO = _mapper.Map<Order, OrderDTO>(order);
             //return CreatedAtAction(nameof(Get), new { id = orderDTO.OrderId }, orderDTO);

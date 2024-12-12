@@ -39,25 +39,6 @@ namespace myShop.Controllers
             return productDTO;
         }
 
-        // POST api/<ProductController>
-        //[HttpPost]
-        //public void Post([FromBody] Product newProduct)
-        //{
-        //    //await productReposetory.addProduct(newProduct);
-        //    //return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, newProduct);
-        //}
-
-        // PUT api/<ProductController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] Product updateProduct)
-        //{
-        //    //await productReposetory.updateProduct(id, updateProduct);
-        //}
-
-        //// DELETE api/<ProductController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        
     }
 }

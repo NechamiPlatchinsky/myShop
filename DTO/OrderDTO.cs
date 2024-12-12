@@ -7,5 +7,5 @@ using Entities;
 
 namespace DTO
 {
-    public record OrderDTO(int? OrderId, DateTime? OrderDate, double? OrderSum); //,ICollection<OrderItem> OrderItems,string? FirstName,string? LastName);
+    public record OrderDTO(int? OrderId, DateTime? OrderDate, double? OrderSum,ICollection<OrderItem> OrderItems,string? UserFirstName,string? UserLastName);
 }
