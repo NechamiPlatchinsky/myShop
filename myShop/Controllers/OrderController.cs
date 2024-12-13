@@ -38,16 +38,12 @@ namespace myShop.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
-        public async Task<ActionResult<Order>> Post([FromBody] Order newOrder)
+        public async Task<ActionResult<Order>> Post([FromBody] OrderPostDTO newOrder)
         {
-            try
-            {
-                await orderService.addOrder(newOrder);
+            Order order = _mapper.Map<OrderPostDTO, Order>(newOrder);
+            await orderService.addOrder(order);
                 return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
-            }catch(Exception ex)
-            {
-                throw new Exception("" + ex);
-            }
+           
             //Order order = await orderService.addOrder(newOrder);
             //OrderDTO orderDTO = _mapper.Map<Order, OrderDTO>(order);
             //return CreatedAtAction(nameof(Get), new { id = orderDTO.OrderId }, orderDTO);
