@@ -15,13 +15,19 @@ namespace Reposetories
         {
             productDBContext = _214416448WebApiContext;
         }
-        public async Task<List<Product>> getAllProduct()
+        public async Task<List<Product>> getAllProduct(int? position, int? skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-            return await productDBContext.Products.Include(a => a.Category).ToListAsync();
+            var query = productDBContext.Products.Where(product =>
+            (desc == null ? (true) : (product.Description.Contains(desc)))
+            && ((minPrice == null) ? (true) : (product.Price >= minPrice))
+            && ((maxPrice == null) ? (true) : (product.Price <= maxPrice))
+            && ((categoryIds.Length == 0) ? (true) : (categoryIds.Contains(product.CategoryId))))
+                .OrderBy(product => product.Price).Include(a => a.Category);
+            return await query.ToListAsync();
         }
         public async Task<Product> getProductById(int id)
         {
-            return await productDBContext.Products.Include(a=>a.Category).FirstOrDefaultAsync(product => product.Id == id);
+            return await productDBContext.Products.Include(a => a.Category).FirstOrDefaultAsync(product => product.Id == id);
         }
     }
 }

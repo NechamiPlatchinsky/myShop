@@ -22,9 +22,9 @@ namespace myShop.Controllers
         }
         // GET: api/<ProductController>
         [HttpGet]
-        public async Task<IEnumerable<ProductDTO>> Get()
+        public async Task<IEnumerable<ProductDTO>> Get([FromQuery] int? position, [FromQuery] int? skip, [FromQuery] string? desc, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] int?[] categoryIds)
         {
-            IEnumerable<Product> products =await productServices.getAllProduct();
+            IEnumerable<Product> products = await productServices.getAllProduct(position, skip, desc, minPrice, maxPrice, categoryIds);
             IEnumerable<ProductDTO> productsDTO = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
             return productsDTO;
 

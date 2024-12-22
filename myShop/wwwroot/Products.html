@@ -2,7 +2,7 @@
 <html>
 <head>
     <link href="Products.css" rel="stylesheet" />
-    <script src="../Scripts/Products.js"></script>
+    <script defer src="Products.js"></script>
 
 
     <meta charset="utf-8" />
@@ -92,10 +92,10 @@
         <div id="priceRangeFilter" class="filterBreak">
             <div><span id="counter">  </span> מחיר:</div>
 
-            <input type="text" maxlength="9" id="minPrice" class="priceInputText">
+            <input type="number" maxlength="9" id="minPrice" class="priceInputText">
             <span class="priceCurrency">₪</span>
 
-            <input type="text" maxlength="9" id="maxPrice" class="priceInputText">
+            <input type="number" maxlength="9" id="maxPrice" class="priceInputText">
             <span class="priceCurrency">₪</span>
             <button onclick="filterProducts()">
                 <span><img src="Images/searchIcon.svg" alt="סמל חיפוש"></span>

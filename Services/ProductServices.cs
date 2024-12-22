@@ -15,9 +15,9 @@ namespace Services
         {
             productrReposetory = _productReposetory;
         }
-        public async Task<List<Product>> getAllProduct()
+        public async Task<List<Product>> getAllProduct(int? position, int? skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-            return await productrReposetory.getAllProduct();
+            return await productrReposetory.getAllProduct(position, skip, desc, minPrice, maxPrice, categoryIds);
         }
         public async Task<Product> getProductById(int id)
         {
