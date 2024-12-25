@@ -52,7 +52,7 @@
                 <a href="shoppingbag.html">
                     <div class="Icon">
                         <div class="ItemCount">
-                            <span id="ItemsCountText">0</span>
+                            <span id="ItemsCountText" style="background-image:url(BagActive.png)">0</span>
                         </div>
                     </div>
 
@@ -92,10 +92,10 @@
         <div id="priceRangeFilter" class="filterBreak">
             <div><span id="counter">  </span> מחיר:</div>
 
-            <input type="number" maxlength="9" id="minPrice" class="priceInputText">
+            <input type="text" maxlength="9" id="minPrice" class="priceInputText">
             <span class="priceCurrency">₪</span>
 
-            <input type="number" maxlength="9" id="maxPrice" class="priceInputText">
+            <input type="text" maxlength="9" id="maxPrice" class="priceInputText">
             <span class="priceCurrency">₪</span>
             <button onclick="filterProducts()">
                 <span><img src="searchIcon.svg" alt="סמל חיפוש"></span>

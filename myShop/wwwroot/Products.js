@@ -1,17 +1,23 @@
-﻿alert("ggfhghjfhg")
-const productList = addEventListener("load", async () => {
+﻿const productList = addEventListener("load", async () => {
     GetproductList()
+    GetCategoriesList()
+    let categoryIdArr = [];
+    let myCartArr = JSON.parse(sessionStorage.getItem("cart")) || [];
+    sessionStorage.setItem("categoryIds", JSON.stringify(categoryIdArr))
+    sessionStorage.setItem("cart", JSON.stringify(myCartArr))
+    document.querySelector("#ItemsCountText").innerHTML = myCartArr.length
 })
 const filterProducts = () => {
     GetproductList()
 }
 const getAllFilter = () => {
     document.getElementById("PoductList").innerHTML = ''
+
     const filter = {
         minPrice: document.querySelector("#minPrice").value,
         maxPrice: document.querySelector("#maxPrice").value,
         desc: document.querySelector("#nameSearch").value,
-        categoryIds: [],
+        categoryIds: JSON.parse(sessionStorage.getItem("categoryIds"))||[],
         position: 0,
         skip:0
     }
@@ -27,7 +33,10 @@ const GetproductList = async ()=>  {
     if (filterItems.maxPrice != '')
         url += `&maxPrice=${filterItems.maxPrice}`
     if (filterItems.categoryIds != '')
-        url += `&categoryIds=${filterItems.categoryIds}`
+        for (let i = 0; i < filterItems.categoryIds.length; i++) {
+               url += `&categoryIds=${filterItems.categoryIds[i]}`
+        }
+        
     try {
         console.log(filterItems)
         const responseGet = await fetch(url, {
@@ -51,7 +60,7 @@ const GetproductList = async ()=>  {
         console.log(error)
     }
 }
-const showAllProducts =async (products) => {
+const showAllProducts = async (products) => {
     for (let i = 0; i < products.length; i++) {
         showOneProduct(products[i]);
     }
@@ -60,14 +69,65 @@ const showAllProducts =async (products) => {
 const showOneProduct = async (product) => {
     let tmp = document.getElementById("temp-card");
     let cloneProduct = tmp.content.cloneNode(true)
-    cloneProduct.querySelector("img").src = "./images/" + product.image
+    cloneProduct.querySelector("img").src = "./Images/" + product.image
     cloneProduct.querySelector("h1").textContent = product.name
     cloneProduct.querySelector(".price").innerText = product.price
     cloneProduct.querySelector(".description").innerText = product.description
-    //cloneProduct.querySelector(".button").addEventListener('click', () => { addToCart(product) })
+    cloneProduct.querySelector("button").addEventListener('click', () => { addToCart(product) })
     document.getElementById("PoductList").appendChild(cloneProduct)
 }
-const addToCart = () => {
-
+const addToCart = (product) => {
+    if (sessionStorage.getItem("user")) {
+        
+        let myCart = JSON.parse(sessionStorage.getItem("cart"))
+        myCart.push(product.id)
+        sessionStorage.setItem("cart", JSON.stringify(myCart))
+        
+        document.querySelector("#ItemsCountText").innerHTML = myCart.length
+    }
+    else {
+        alert("אינך רשום")
+        window.location.href = "home.html"
+    }
+    
+}
+const GetCategoriesList = async () => {
+    try {
+        const responseGet = await fetch("api/category", {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            //query: {
+            //}
+        })
+        const dataGet = await responseGet.json();
+        console.log(dataGet)
+        showAllCategories(dataGet);
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 
+const showAllCategories = async (categories) => {
+    for (let i = 0; i < categories.length; i++) {
+        showOneCategory(categories[i]);
+    }
+}
+const showOneCategory = async (category) => {
+    let tmp = document.getElementById("temp-category");
+    let cloneCategory = tmp.content.cloneNode(true)
+    cloneCategory.querySelector(".OptionName").textContent = category.name
+    cloneCategory.querySelector(".opt").addEventListener('change', () => { addCategory(category.id) })
+    document.getElementById("categoryList").appendChild(cloneCategory)
+}
+
+const addCategory = async (id) => {
+    let categories = JSON.parse(sessionStorage.getItem("categoryIds"))
+    let index = categories.indexOf(id)
+    index == -1 ? categories.push(id) : categories.splice(index, 1)
+    sessionStorage.setItem("categoryIds", JSON.stringify(categories))
+    console.log(categories)
+    GetproductList()
+}
