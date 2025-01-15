@@ -23,9 +23,9 @@ namespace Reposetories
         public async Task<User> addUser(User newUser)
         {
 
-            await myShopDBContext.Users.AddAsync(newUser);
+            var user =await myShopDBContext.Users.AddAsync(newUser);
             await myShopDBContext.SaveChangesAsync();
-            return newUser;
+            return user;
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {

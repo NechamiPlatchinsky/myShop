@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <script src="Cart.js"></script>
     <link href="ShoppingBag.css" rel="stylesheet" />
-    <script src="ShoppingBag.js"></script>
+    
     <template id="temp-row">
         <tr class="item-row">
             <td class="imageColumn"><a rel="lightbox" href="#"><div class="image"></div></a></td>
             <td class="descriptionColumn"><div><h3 class="itemName"></h3><h6><p class="itemNumber"></p><a class="viewLink" href="https://www.next.co.il/he/g59522s11#407223">לפרטים נוספים</a></h6></div></td>
+            <td class="amount"><div></div></td>
             <td class="availabilityColumn"><div>במלאי</div></td>
-            <td class="totalColumn delete"><div class="expandoHeight" style="height: 99px;"><p class="price"></p><a href="#" title="לחצו כאן כדי להסיר את פריט זה" class="Hide DeleteButton showText">הסרת פריט</a></div></td>
+            <td class="totalColumn delete"><p class="price"></p><div class="expandoHeight" style="height: 99px;"><a href="#" title="לחצו כאן כדי להסיר את פריט זה" class="Hide DeleteButton showText">הסרת פריט</a></div></td>
         </tr>
     </template>
 </head>
@@ -28,6 +30,7 @@
                 <thead>
                     <tr>
                         <th class="itemsColumn" colspan="2">פריטים</th>
+                        <th>כמות</th>
                         <th>זמינות</th>
                         <th class="totalColumn">סכום ההזמנה</th>
                     </tr>

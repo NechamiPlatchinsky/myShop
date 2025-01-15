@@ -5,8 +5,16 @@
     let myCartArr = JSON.parse(sessionStorage.getItem("cart")) || [];
     sessionStorage.setItem("categoryIds", JSON.stringify(categoryIdArr))
     sessionStorage.setItem("cart", JSON.stringify(myCartArr))
-    document.querySelector("#ItemsCountText").innerHTML = myCartArr.length
+    //sessionStorage.setItem("count")
+    document.querySelector("#ItemsCountText").innerHTML = getItemsCountText(myCartArr);
 })
+const getItemsCountText = (myCartArr) => {
+    let sum = 0;
+    myCartArr.map((item) => {
+        sum+=item.quantity
+    })
+    return sum;
+}
 const filterProducts = () => {
     GetproductList()
 }
@@ -80,10 +88,20 @@ const addToCart = (product) => {
     if (sessionStorage.getItem("user")) {
         
         let myCart = JSON.parse(sessionStorage.getItem("cart"))
-        myCart.push(product.id)
+        let flag = 0;
+        myCart.map((item) => {
+            if (item.productId == product.id) {
+                item.quantity++;
+                flag = 1
+            }
+            return item
+        })
+        if (flag == 0) { 
+            let obj = { productId: product.id,quantity:1 }
+        myCart.push(obj)}
         sessionStorage.setItem("cart", JSON.stringify(myCart))
         
-        document.querySelector("#ItemsCountText").innerHTML = myCart.length
+        document.querySelector("#ItemsCountText").innerHTML = JSON.parse(document.querySelector("#ItemsCountText").innerHTML) + 1;
     }
     else {
         alert("אינך רשום")

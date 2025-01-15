@@ -41,8 +41,8 @@ namespace myShop.Controllers
         public async Task<ActionResult<Order>> Post([FromBody] OrderPostDTO newOrder)
         {
             Order order = _mapper.Map<OrderPostDTO, Order>(newOrder);
-            await orderService.addOrder(order);
-                return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
+            var a = await orderService.addOrder(order);
+                return CreatedAtAction(nameof(Get), new { id = a.OrderId }, newOrder);
            
             //Order order = await orderService.addOrder(newOrder);
             //OrderDTO orderDTO = _mapper.Map<Order, OrderDTO>(order);
