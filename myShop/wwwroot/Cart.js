@@ -119,8 +119,7 @@ const generateDate = () => {
     //let year = date.getFullYear();
     //let currentDate = `${year}-${month}-${day}`;
     //console.log("currentDate    " + currentDate)
-    ////return currentDate.toString()
-    ////return date.getDate()
+    /*return currentDate.toString()*/
     //DateTime dt = new DateTime(); 
     
     var currentTime = new Date();

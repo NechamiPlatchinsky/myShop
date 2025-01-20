@@ -3,6 +3,9 @@ using Reposetories;
 using Services;
 using Microsoft.EntityFrameworkCore;
 using Entities;
+using NLog.Web;
+using myShop;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,11 +20,16 @@ builder.Services.AddScoped<ICategoryReposetory, CategoryReposetory>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddScoped<IOrderReposetory, OrderReposetory>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Host.UseNLog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+//app.UseRatingMiddleware();
+app.UseAddRatingMiddleware();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
