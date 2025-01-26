@@ -32,7 +32,7 @@ const getAllFilter = () => {
     return filter
 }
 const GetproductList = async ()=>  {
-    const filterItems = getAllFilter()
+    const filterItems = getAllFilter()// build url in a different function
     let url = `api/product/?position=${filterItems.position}&skip=${filterItems.skip}`
     if (filterItems.desc != '')
         url += `&desc=${filterItems.desc}`
@@ -41,7 +41,7 @@ const GetproductList = async ()=>  {
     if (filterItems.maxPrice != '')
         url += `&maxPrice=${filterItems.maxPrice}`
     if (filterItems.categoryIds != '')
-        for (let i = 0; i < filterItems.categoryIds.length; i++) {
+        for (let i = 0; i < filterItems.categoryIds.length; i++) {//map is nicer
                url += `&categoryIds=${filterItems.categoryIds[i]}`
         }
         
@@ -69,7 +69,7 @@ const GetproductList = async ()=>  {
     }
 }
 const showAllProducts = async (products) => {
-    for (let i = 0; i < products.length; i++) {
+    for (let i = 0; i < products.length; i++) {//map
         showOneProduct(products[i]);
     }
 }
