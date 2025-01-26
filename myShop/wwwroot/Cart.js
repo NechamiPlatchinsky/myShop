@@ -55,10 +55,10 @@ const deleteProduct = async (product) => {
         cart = cart.map((item) => {
             if (product.id == item.productId) {
                 item.quantity = item.quantity - 1;
-                item.productId = item.productId
+                item.productId = item.productId//?
             }
             else {
-                item = item
+                item = item//?
             }
             return item
         })

@@ -20,7 +20,8 @@ namespace Reposetories
         {
             await orderContext.Orders.AddAsync(newOrder);
             await orderContext.SaveChangesAsync();
-            return newOrder;
+            return newOrder;//you need the id of the new order, so- var res= await orderContext.Orders.AddAsync(newOrder);, newOrder.Id= res.id.
+
         }
         public async Task<Order> getOrderById(int id)
         {
