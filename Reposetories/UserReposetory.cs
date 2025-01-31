@@ -21,6 +21,10 @@ namespace Reposetories
             myShopDBContext = _myShopDBContext;
             _logger = logger;
         }
+        public UserReposetory(_214416448WebApiContext _myShopDBContext)
+        {
+            myShopDBContext = _myShopDBContext;
+        }
 
         public async Task<User> addUser(User newUser)
         {
@@ -31,8 +35,9 @@ namespace Reposetories
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {
-            _logger.LogCritical($"Login ettampted with User Name {Email} and password {Password}");
-           return await myShopDBContext.Users.FirstOrDefaultAsync(user => user.Email == Email && user.Password == Password);
+           //_logger.LogCritical($"Login ettampted with User Name {Email} and password {Password}");
+           var u= await myShopDBContext.Users.FirstOrDefaultAsync(user => user.Email == Email && user.Password == Password);
+            return u;
         }
         public async Task<User> getUserById(int id)
         {

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reposetories", "Reposetorie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{2D8B7B6A-B84F-47C3-9736-547D4081CDAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{FA93371A-EDB7-4D46-9CF7-F2021948C49B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{FA93371A-EDB7-4D46-9CF7-F2021948C49B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMyShop", "TestMyShop\TestMyShop.csproj", "{B476FF2B-2E39-48DA-BAE7-3C518099E518}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FA93371A-EDB7-4D46-9CF7-F2021948C49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA93371A-EDB7-4D46-9CF7-F2021948C49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA93371A-EDB7-4D46-9CF7-F2021948C49B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B476FF2B-2E39-48DA-BAE7-3C518099E518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B476FF2B-2E39-48DA-BAE7-3C518099E518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B476FF2B-2E39-48DA-BAE7-3C518099E518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B476FF2B-2E39-48DA-BAE7-3C518099E518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

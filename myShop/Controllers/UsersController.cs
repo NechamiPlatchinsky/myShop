@@ -43,12 +43,12 @@ namespace myShop.Controllers
             int num = userServices.checkPassword(newUser.Password);
             if (num >= 2)
             {
-                await userServices.addUser(user);
-                return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
+                User newUser1 =  await userServices.addUser(user);
+                return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser1);
             }
             else
             {
-                return BadRequest();
+                return BadRequest("password");
             }
 
 
