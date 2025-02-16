@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Services
 {
@@ -7,7 +8,7 @@ namespace Services
         Task<User> addUser(User newUser);
         int checkPassword(string password);
         Task<User> getUserToLogin(string Email, string Password);
-        Task updateUser(int id, User updateUser);
+        Task<User> updateUser(int id, User updateUser);
         Task<User> getUserById(int id);
     }
 }

@@ -15,7 +15,7 @@ namespace TestMyShop
         public DatabaseFixture()
         {
             var options = new DbContextOptionsBuilder<_214416448WebApiContext>()
-                .UseSqlServer("Server=srv2\\pupils;Database=Tests;Trusted_Connection=True;")
+                .UseSqlServer("Server=srv2\\pupils;Database=Tests_Nechami;Trusted_Connection=True;")
                 .Options;
             Context = new _214416448WebApiContext(options);
             Context.Database.EnsureCreated();

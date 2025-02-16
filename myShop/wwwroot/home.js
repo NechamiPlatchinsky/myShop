@@ -1,4 +1,12 @@
-﻿
+﻿//const productList = addEventListener("load", async () => {
+//    GetproductList()
+//    GetCategoriesList()
+//    let categoryIdArr = [];
+//    let myCartArr = JSON.parse(sessionStorage.getItem("cart")) || [];
+//    sessionStorage.setItem("categoryIds", JSON.stringify(categoryIdArr))
+//    sessionStorage.setItem("cart", JSON.stringify(myCartArr))
+//    document.querySelector("#ItemsCountText").innerHTML = getItemsCountText(myCartArr);
+//})
 const visibleRegister = () => {
     const ragisterDiv = document.querySelector(".unVisible")
     ragisterDiv.classList.remove("unVisible")
@@ -44,12 +52,15 @@ const registerUser = async () => {
             },
             body: JSON.stringify(newUser)
         })
+        if (responsePost.status == 400)
+            throw ("week password")
         if (!responsePost.ok)
            return alert("משהו השתבש")
             alert("נוסף בהצלחה")
     }
     catch (error) {
         console.log(error)
+        alert(error);
     }
     
 }
@@ -71,6 +82,7 @@ const login = async () => {
         const dataPost = await responsePost.json();
         sessionStorage.setItem('user', dataPost.userId)
         sessionStorage.setItem('nameUser', dataPost.firstName)
+        sessionStorage.setItem("fullUser", JSON.stringify( dataPost))
         window.location.href="Products.html"
     }
     catch (error) {
@@ -78,8 +90,19 @@ const login = async () => {
     }
 
 }
+const getDitailsToUpdate = () => {
+    const u = JSON.parse(sessionStorage.getItem('fullUser')); 
+    const user = {
+        Email: document.querySelector(".email").value || u.Email,
+        Password: document.querySelector(".password").value,
+        FirstName: document.querySelector(".firstName").value||u.firstName,
+        LastName: document.querySelector(".lastName").value||u.lastName
+    }
+
+    return user
+}
 const updateDitailse = async() => {
-    const user = getDitails();
+    const user = getDitailsToUpdate();
     try {
         const responsePut = await fetch(`api/users/${sessionStorage.getItem("user")}`, {
             method: 'PUT',
@@ -92,6 +115,8 @@ const updateDitailse = async() => {
         //const dataPut = await responsePut.json();
         //console.log(dataPut)
         //sessionStorage.setItem('user', dataPost.userId)
+        if (responsePut.status == 400)
+            throw ("week password")
         if (!responsePut.ok)
             alert("משהו השתבש")
         else
@@ -99,7 +124,7 @@ const updateDitailse = async() => {
     }
     catch (error) {
         console.log(error)
-        
+        alert(error);
     }
 }
 const checkPassword = async() => {
@@ -120,6 +145,7 @@ const checkPassword = async() => {
 
         /*const dataPost = await responsePost.json();*/
     }
+
     catch (error) {
         console.log(error)
     }

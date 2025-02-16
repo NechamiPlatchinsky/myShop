@@ -40,15 +40,15 @@ namespace myShop.Controllers
         public async Task<ActionResult<User>> Post([FromBody] UserDTO newUser)
         {
             User user = _mapper.Map<UserDTO,User>(newUser);
-            int num = userServices.checkPassword(newUser.Password);
-            if (num >= 2)
+            //int num = userServices.checkPassword(newUser.Password);
+            User user1= await userServices.addUser(user);
+            if (user1 != null)
             {
-                User newUser1 =  await userServices.addUser(user);
-                return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser1);
+                return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, user1);
             }
             else
             {
-                return BadRequest("password");
+                return BadRequest("week password");
             }
 
 
@@ -75,19 +75,19 @@ namespace myShop.Controllers
         }
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public ActionResult<string> Put(int id, [FromBody] UserDTO updateUser)
+        public async Task<ActionResult<string>> Put(int id, [FromBody] UserDTO updateUser)
         {
 
             User user = _mapper.Map<UserDTO, User>(updateUser);
-            int num = userServices.checkPassword(updateUser.Password);
-            if (num >= 2|| updateUser.Password == "")
+            int num = userServices.checkPassword(user.Password);
+            User user1 = await userServices.updateUser(id, user);
+            if (user1!=null)
             {
-                userServices.updateUser(id, user);
                 return Ok();
             }
             else
             {
-                 return BadRequest("קוד לא תקין");
+                 return BadRequest("week password");
             }
 
             

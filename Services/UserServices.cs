@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Zxcvbn;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Services
 {
@@ -20,15 +21,31 @@ namespace Services
         }
         public async Task<User> addUser(User newUser)
         {
-            return await userReposetory.addUser(newUser);
+            int num = checkPassword(newUser.Password);
+            if (num >= 2)
+            {
+               return await userReposetory.addUser(newUser);
+            }
+            else {
+                return null;
+            }
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {
             return await userReposetory.getUserToLogin(Email, Password);
         }
-        public async Task updateUser(int id, User updateUser)
+        public async Task<User> updateUser(int id, User updateUser)
         {
-            userReposetory.updateUser(id, updateUser);
+            int num = checkPassword(updateUser.Password);
+            if (num >= 2)
+            {
+                return await userReposetory.updateUser(id, updateUser);
+            }
+            else
+            {
+                return null;
+            }
+            //userReposetory.updateUser(id, updateUser);
         }
         public int checkPassword(string password)
         {

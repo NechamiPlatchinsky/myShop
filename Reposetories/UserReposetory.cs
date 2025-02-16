@@ -43,11 +43,12 @@ namespace Reposetories
         {
             return await myShopDBContext.Users.FirstOrDefaultAsync(user=>user.UserId==id);
         }
-        public async Task updateUser(int id, User updateUser)
+        public async Task<User> updateUser(int id, User updateUser)
         {
             updateUser.UserId = id;
             myShopDBContext.Users.Update(updateUser);
             await myShopDBContext.SaveChangesAsync();
+            return updateUser;
         }
     }
 }

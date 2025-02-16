@@ -5,7 +5,6 @@
     let myCartArr = JSON.parse(sessionStorage.getItem("cart")) || [];
     sessionStorage.setItem("categoryIds", JSON.stringify(categoryIdArr))
     sessionStorage.setItem("cart", JSON.stringify(myCartArr))
-    //sessionStorage.setItem("count")
     document.querySelector("#ItemsCountText").innerHTML = getItemsCountText(myCartArr);
 })
 const getItemsCountText = (myCartArr) => {
@@ -31,8 +30,7 @@ const getAllFilter = () => {
     }
     return filter
 }
-const GetproductList = async ()=>  {
-    const filterItems = getAllFilter()
+const buildUrl =  (filterItems) => {
     let url = `api/product/?position=${filterItems.position}&skip=${filterItems.skip}`
     if (filterItems.desc != '')
         url += `&desc=${filterItems.desc}`
@@ -41,9 +39,15 @@ const GetproductList = async ()=>  {
     if (filterItems.maxPrice != '')
         url += `&maxPrice=${filterItems.maxPrice}`
     if (filterItems.categoryIds != '')
-        for (let i = 0; i < filterItems.categoryIds.length; i++) {
-               url += `&categoryIds=${filterItems.categoryIds[i]}`
-        }
+        filterItems.categoryIds.map(item => {
+        url += `&categoryIds=${item}`
+    })
+    return url;
+}
+const GetproductList = async ()=>  {
+    const filterItems = getAllFilter()
+    let url = buildUrl(filterItems);
+   
         
     try {
         console.log(filterItems)
@@ -57,11 +61,10 @@ const GetproductList = async ()=>  {
                  minPrice: filterItems.minPrice, maxPrice: filterItems.maxPrice, categoryIds: filterItems.categoryIds
              }
         })
-        //if (responseGet.status == 204)
-        //    return alert("משתמש לא מזוהה")
+        if (responseGet.status == 204)
+            return alert("משתמש לא מזוהה")
         const dataPost = await responseGet.json();
         console.log(dataPost)
-        //window.location.href = "Products.html"
         showAllProducts(dataPost);
     }
     catch (error) {
@@ -69,9 +72,9 @@ const GetproductList = async ()=>  {
     }
 }
 const showAllProducts = async (products) => {
-    for (let i = 0; i < products.length; i++) {
-        showOneProduct(products[i]);
-    }
+    products.map(item => {
+        showOneProduct(item);
+    })
 }
 
 const showOneProduct = async (product) => {
@@ -116,8 +119,6 @@ const GetCategoriesList = async () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            //query: {
-            //}
         })
         const dataGet = await responseGet.json();
         console.log(dataGet)
@@ -129,9 +130,9 @@ const GetCategoriesList = async () => {
 }
 
 const showAllCategories = async (categories) => {
-    for (let i = 0; i < categories.length; i++) {
-        showOneCategory(categories[i]);
-    }
+    categories.map(item => {
+        showOneCategory(item);
+    })
 }
 const showOneCategory = async (category) => {
     let tmp = document.getElementById("temp-category");
