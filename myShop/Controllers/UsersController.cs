@@ -87,7 +87,7 @@ namespace myShop.Controllers
             }
             else
             {
-                 return BadRequest("week password");
+                 return BadRequest("week password");//
             }
 
             
