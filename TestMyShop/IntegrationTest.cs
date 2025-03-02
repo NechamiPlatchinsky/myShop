@@ -20,7 +20,7 @@ namespace TestMyShop
         public async Task Get_ShouldReturnUser_WhenUserExists()
         {
             // Arrange
-            var user = new User { Email = "test@example.com", Password = "password123",FirstName="pppp",LastName="vgfcgfc"};
+            var user = new User { Email = "test1@example.com", Password = "password123",FirstName="pppp",LastName="vgfcgfc"};
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 

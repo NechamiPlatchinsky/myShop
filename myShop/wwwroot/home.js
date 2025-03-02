@@ -53,7 +53,7 @@ const registerUser = async () => {
             body: JSON.stringify(newUser)
         })
         if (responsePost.status == 400)
-            throw ("week password")
+            throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")
         if (!responsePost.ok)
            return alert("משהו השתבש")
             alert("נוסף בהצלחה")
@@ -115,8 +115,8 @@ const updateDitailse = async() => {
         //const dataPut = await responsePut.json();
         //console.log(dataPut)
         //sessionStorage.setItem('user', dataPost.userId)
-        if (responsePut.status == 400)
-            throw ("week password")
+        if (responsePost.status == 400)
+            throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")
         if (!responsePut.ok)
             alert("משהו השתבש")
         else

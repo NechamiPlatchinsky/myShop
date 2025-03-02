@@ -18,8 +18,9 @@ namespace Reposetories
         }
         public async Task<Order> addOrder(Order newOrder)
         {
-            await orderContext.Orders.AddAsync(newOrder);
+            var order = await orderContext.Orders.AddAsync(newOrder);
             await orderContext.SaveChangesAsync();
+            newOrder.OrderId = order.Entity.OrderId;
             return newOrder;
         }
         public async Task<Order> getOrderById(int id)

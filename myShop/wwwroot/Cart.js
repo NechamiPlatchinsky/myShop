@@ -71,11 +71,11 @@ const placeOrder = () => {
     orderPost()
 }
 const getOrderPostObj = () => {
-    generateDate()
+    
         objOrderItem ={
             "userId": JSON.parse(sessionStorage.getItem('user')),
-            "orderDate": "2025-01-05",
-            "orderSum": JSON.parse(document.getElementById("totalAmount").innerHTML),
+            "orderDate":  new Date(),
+            "orderSum":JSON.parse(document.getElementById("totalAmount").innerHTML),
             "orderItems": JSON.parse(sessionStorage.getItem("cart")),
             "userFirstName": "string",
             "userLastName": "string"
@@ -94,7 +94,11 @@ const orderPost =async () => {
             body: JSON.stringify(orderPostObj)
         })
         const dataPost = await responsePost.json();
-        console.log(dataPost)
+        if (dataPost.status == 400) {
+            throw("משהו השתבש")
+        }
+        /*console.log(dataPost)*/
+        alert(" הזמנה מספר" + dataPost.orderId + "✔ בוצעה בהצלחה ")
         //sessionStorage.setItem('user', dataPost.userId)
         //if (!responsePut.ok)
         //    alert("משהו השתבש")
@@ -102,23 +106,8 @@ const orderPost =async () => {
         //    alert("aaaaaaaaaaaaaaa ")
     }
     catch (error) {
-        console.log(error)
-        alert("lmhgyf")
+        //console.log(error)
+        alert(error)
 
     }
-}
-const generateDate = () => {
-    //const date = new DateTime();
-
-    //let day = date.getDate();
-    //let month = date.getMonth() + 1;
-    //let year = date.getFullYear();
-    //let currentDate = `${year}-${month}-${day}`;
-    //console.log("currentDate    " + currentDate)
-    /*return currentDate.toString()*/
-    //DateTime dt = new DateTime(); 
-    
-    var currentTime = new Date();
-    const currentDate = `${currentTime.getFullYear()}-${currentTime.getMonth()}-${currentTime.getDay()}`;
-    console.log("lllll       " + currentDate)
 }

@@ -42,23 +42,10 @@ namespace myShop.Controllers
         {
             Order order = _mapper.Map<OrderPostDTO, Order>(newOrder);
             var a = await orderService.addOrder(order);
-                return CreatedAtAction(nameof(Get), new { id = a.OrderId }, newOrder);
-           
-            //Order order = await orderService.addOrder(newOrder);
-            //OrderDTO orderDTO = _mapper.Map<Order, OrderDTO>(order);
-            //return CreatedAtAction(nameof(Get), new { id = orderDTO.OrderId }, orderDTO);
+            OrderNewDTO orderNew= _mapper.Map<Order, OrderNewDTO>(a);
+            if (orderNew != null)
+                return CreatedAtAction(nameof(Get), new { id = a.OrderId }, orderNew);
+            return BadRequest();
         }
 
-        // PUT api/<OrderController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        // DELETE api/<OrderController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
-    }
 }

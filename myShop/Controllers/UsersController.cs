@@ -21,13 +21,6 @@ namespace myShop.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/<UsersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "Nechami", "Platchinsky" };
-        }
-
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public async Task<User> Get(int id)
@@ -87,7 +80,7 @@ namespace myShop.Controllers
             }
             else
             {
-                 return BadRequest("week password");//
+                 return BadRequest("week password");
             }
 
             

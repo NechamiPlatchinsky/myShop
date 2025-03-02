@@ -15,6 +15,8 @@ namespace myShop
             CreateMap<OrderItemDTO, OrderItem>();
             CreateMap<UserDTO, User>();
             CreateMap<User, ReturnUserDTO>();
+            CreateMap<Order, OrderNewDTO>();
+            CreateMap<Order, OrderPostDTO>();
         }
     }
 }
