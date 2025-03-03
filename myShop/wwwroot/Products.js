@@ -88,7 +88,7 @@ const showOneProduct = async (product) => {
     document.getElementById("PoductList").appendChild(cloneProduct)
 }
 const addToCart = (product) => {
-    if (sessionStorage.getItem("user")) {
+    //if (sessionStorage.getItem("user")) {
         
         let myCart = JSON.parse(sessionStorage.getItem("cart"))
         let flag = 0;
@@ -105,11 +105,11 @@ const addToCart = (product) => {
         sessionStorage.setItem("cart", JSON.stringify(myCart))
         
         document.querySelector("#ItemsCountText").innerHTML = JSON.parse(document.querySelector("#ItemsCountText").innerHTML) + 1;
-    }
-    else {
-        alert("אינך רשום")
-        window.location.href = "home.html"
-    }
+    //}
+    //else {
+    //    alert("יש לבצע כניסה לפני תחילת הקניה")
+    //    window.location.href = "home.html"
+    //}
     
 }
 const GetCategoriesList = async () => {

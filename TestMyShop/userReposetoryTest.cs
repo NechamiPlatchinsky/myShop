@@ -15,6 +15,9 @@ namespace TestMyShop
     public class userReposetoryTest
     {
         private readonly ILogger<UserReposetory> _logger;
+        private readonly Mock<DbSet<User>> _mockSet;
+        private readonly Mock<_214416448WebApiContext> _mockContext;
+        private readonly UserReposetory _userRepository;
         [Fact]
         public async Task GetUser_ValidCredentials_ReturnUser()
         {
@@ -34,6 +37,8 @@ namespace TestMyShop
             var mockContext = new Mock<_214416448WebApiContext>(); // Mock של הקונטקסט
             var userToReturn = new User { UserId = 1, FirstName = "John", LastName = "Doe", Email = "john.doe@example.com" };
 
+            var users = new List<User>() { userToReturn };
+            mockContext.Setup(x => x.Users).ReturnsDbSet(users);
             // המוק של ה-DbSet מחזיר את המשתמש הרצוי כשה-id הוא 1
             mockContext.Setup(m => m.Users.FindAsync(It.IsAny<int>())).ReturnsAsync(userToReturn);
 
@@ -48,49 +53,14 @@ namespace TestMyShop
             Assert.Equal("John", result.FirstName); // תוודא שהשם הפרטי הוא "John"
             Assert.Equal("Doe", result.LastName); // תוודא שהשם משפחה הוא "Doe"
             Assert.Equal("john.doe@example.com", result.Email); // תוודא שהדוא"ל נכון
-        }
-        [Fact]
-        public async Task Get_UserExists_ReturnsUser1()
-        {
-            // Arrange
-            var options = new DbContextOptionsBuilder<_214416448WebApiContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-
-            using (var context = new _214416448WebApiContext(options))
-            {
-                context.Users.Add(new User
-                {
-                    UserId = 1,
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Email = "john.doe@example.com",
-                    Password = "password123"
-                });
-                context.SaveChanges();
             }
-
-            using (var context = new _214416448WebApiContext(options))
-            {
-                var repository = new UserReposetory(context);
-
-                // Act
-                var result = await repository.getUserById(1);
-
-                // Assert
-                Assert.NotNull(result);
-                Assert.Equal(1, result.UserId);
-                Assert.Equal("John", result.FirstName);
-                Assert.Equal("Doe", result.LastName);
-                Assert.Equal("john.doe@example.com", result.Email);
-            }
-        }
         [Fact]
         public async Task Get_UserDoesNotExist_ReturnsNull()
         {
             // Arrange
             var mockContext = new Mock<_214416448WebApiContext>();
-
+            var users = new List<User>();
+            mockContext.Setup(x => x.Users).ReturnsDbSet(users);
             // המוק של ה-DbSet מחזיר null כאשר לא נמצא משתמש עם ה-id המבוקש
             mockContext.Setup(m => m.Users.FindAsync(It.IsAny<int>())).ReturnsAsync((User)null);
 
@@ -101,6 +71,55 @@ namespace TestMyShop
 
             // Assert
             Assert.Null(result); // תוודא שהתוצאה היא null במקרה של id שלא קיים
+        }
+        [Fact]
+        public async Task Post_FailedToAddUser_ThrowsException()
+        {
+            // Arrange
+            var mockContext = new Mock<_214416448WebApiContext>();
+            var userToAdd = new User
+            {
+                UserId = 1,
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "john.doe@example.com",
+                Password = "securepassword"
+            };
+            var users = new List<User>() { userToAdd };
+            mockContext.Setup(x => x.Users).ReturnsDbSet(users);
+            // Setup של AddAsync כך שיזרוק Exception
+            mockContext.Setup(m => m.Users.AddAsync(It.IsAny<User>(), default)).ThrowsAsync(new System.Exception("Failed to add user"));
+
+            var Reposetory = new UserReposetory(mockContext.Object);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<System.Exception>(async () => await Reposetory.addUser(userToAdd)); // תוודא שהשגיאה נזרקת
+        }
+        [Fact]
+        public async Task Put_UserDoesNotExist_ThrowsException()
+        {
+            // Arrange
+            var mockContext = new Mock<_214416448WebApiContext>();
+            var userToUpdate = new User
+            {
+                UserId = 1,
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "john.doe@example.com",
+                Password = "securepassword"
+            };
+            var users = new List<User>() { userToUpdate};
+            mockContext.Setup(x => x.Users).ReturnsDbSet(users);
+            // Setup של Update כך שהיא לא תשפיע, רק תחזיר את המשתמש החדש
+            mockContext.Setup(m => m.Users.Update(It.IsAny<User>()));
+
+            // Setup של SaveChangesAsync כך שיזרוק Exception
+            mockContext.Setup(m => m.SaveChangesAsync(default)).ThrowsAsync(new System.Exception("Failed to save changes"));
+
+            var Reposetory = new UserReposetory(mockContext.Object);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<System.Exception>(async () => await Reposetory.updateUser(1, userToUpdate)); // תוודא שהשגיאה נזרקת
         }
     }
 }

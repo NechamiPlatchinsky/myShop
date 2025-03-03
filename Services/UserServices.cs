@@ -9,15 +9,20 @@ using System.Text.Json;
 using Zxcvbn;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Services
 {
     public class UserServices : IUserServices
     {
         IUserReposetory userReposetory ;
-        public UserServices(IUserReposetory _userReposetory)
+        private readonly ILogger<UserServices> _logger;
+
+        public UserServices(IUserReposetory _userReposetory, ILogger<UserServices> logger)
         {
             userReposetory = _userReposetory;
+            _logger = logger;
+
         }
         public async Task<User> addUser(User newUser)
         {
@@ -32,7 +37,12 @@ namespace Services
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {
-            return await userReposetory.getUserToLogin(Email, Password);
+            User u = await userReposetory.getUserToLogin(Email, Password);
+            if (u != null)
+            {
+                _logger.LogCritical($"Login ettampted with User Name {Email} and password {Password}");
+            }
+            return u;
         }
         public async Task<User> updateUser(int id, User updateUser)
         {

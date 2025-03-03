@@ -66,8 +66,17 @@ const deleteProduct = async (product) => {
     document.getElementById("items").innerHTML = ''
     window.location.href = "ShoppingBag.html"
 }
+const ifLogin = () => {
+    if (JSON.parse(sessionStorage.getItem("user")) == undefined) { 
+    alert("יש להכנס לפני סגירת הזמנה")
+    //sessionStorage.setItem("buy", JSON.stringify("yes"))
+        window.location.href = 'home.html';
+    }
+    return;
+}
 const placeOrder = () => {
-    generateDate()
+    ifLogin()
+    //generateDate()
     orderPost()
 }
 const getOrderPostObj = () => {
@@ -75,7 +84,7 @@ const getOrderPostObj = () => {
         objOrderItem ={
             "userId": JSON.parse(sessionStorage.getItem('user')),
             "orderDate":  new Date(),
-            "orderSum":JSON.parse(document.getElementById("totalAmount").innerHTML),
+            "orderSum":100,//JSON.parse(document.getElementById("totalAmount").innerHTML),
             "orderItems": JSON.parse(sessionStorage.getItem("cart")),
             "userFirstName": "string",
             "userLastName": "string"
@@ -99,6 +108,7 @@ const orderPost =async () => {
         }
         /*console.log(dataPost)*/
         alert(" הזמנה מספר" + dataPost.orderId + "✔ בוצעה בהצלחה ")
+        removeCar();
         //sessionStorage.setItem('user', dataPost.userId)
         //if (!responsePut.ok)
         //    alert("משהו השתבש")
@@ -110,4 +120,8 @@ const orderPost =async () => {
         alert(error)
 
     }
+}
+const removeCar = () => {
+    sessionStorage.setItem("cart", JSON.stringify([]))
+    window.location.href = "Products.html"
 }

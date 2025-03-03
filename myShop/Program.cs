@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddDbContext<_214416448WebApiContext>(options => options.UseSqlServer("Server=SRV2\\PUPILS;Database=214416448_webApi;Trusted_Connection=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<_214416448WebApiContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("School")));
 builder.Services.AddScoped<IUserServices,UserServices>();
 builder.Services.AddScoped<IUserReposetory,UserReposetory>();
 builder.Services.AddScoped<IProductServices, ProductServices>();

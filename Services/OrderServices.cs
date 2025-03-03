@@ -1,4 +1,6 @@
 ﻿using Entities;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Reposetories;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,22 @@ namespace Services
     {
         IOrderReposetory orderReposetory;
         IProductReposetory productReposetory;
+        private readonly ILogger<OrderServices> _logger;
 
-        public OrderServices(IOrderReposetory IOrderReposetory,IProductReposetory IProductReposetory)
+        public OrderServices(IOrderReposetory IOrderReposetory,IProductReposetory IProductReposetory, ILogger<OrderServices> logger)
         {
             orderReposetory = IOrderReposetory;
             productReposetory= IProductReposetory;
+            _logger = logger;
         }
         public async Task<Order> addOrder(Order newOrder)
         {
-            newOrder.OrderSum = await CheckOrserSum(newOrder);
+            double orderSum = await CheckOrserSum(newOrder);
+            if (orderSum != newOrder.OrderSum) 
+            { 
+                newOrder.OrderSum = orderSum;
+                _logger.LogCritical($"User with Id: {newOrder.UserId} change the order sum");
+            }
             return await orderReposetory.addOrder(newOrder);
         }
         public async Task<Order> getOrderById(int id)

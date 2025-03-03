@@ -16,7 +16,7 @@ namespace myShop.Controllers
         IMapper _mapper;
         public OrderController(IOrderServices IOrderServices, IMapper mapper)
         {
-            orderService=IOrderServices;
+            orderService = IOrderServices;
             _mapper = mapper;
         }
 
@@ -42,10 +42,10 @@ namespace myShop.Controllers
         {
             Order order = _mapper.Map<OrderPostDTO, Order>(newOrder);
             var a = await orderService.addOrder(order);
-            OrderNewDTO orderNew= _mapper.Map<Order, OrderNewDTO>(a);
+            OrderNewDTO orderNew = _mapper.Map<Order, OrderNewDTO>(a);
             if (orderNew != null)
                 return CreatedAtAction(nameof(Get), new { id = a.OrderId }, orderNew);
             return BadRequest();
         }
-
+    }
 }
