@@ -150,3 +150,7 @@ const addCategory = async (id) => {
     console.log(categories)
     GetproductList()
 }
+
+const ditailsUser =  () => {
+    window.location.href='home.html'
+}

@@ -41,7 +41,7 @@ namespace Services
             User u = await userReposetory.getUserToLogin(Email, Password);
             if (u != null)
             {
-                _logger.LogCritical($"Login ettampted with User Name {Email} and password {Password}");
+                _logger.LogInformation($"Login ettampted with User Name {Email} and password {Password}");
             }
             return u;
         }
@@ -70,6 +70,10 @@ namespace Services
         public async Task<User> ValidateUniqueEmail(string email)
         {
             return await userReposetory.ValidateUniqueEmail(email);
+        }
+        public async Task<User> ValidateUniqueEmailOnUpdate(string email, int id)
+        {
+            return await userReposetory.ValidateUniqueEmailOnUpdate(email, id);
         }
     }
 }

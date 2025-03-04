@@ -24,7 +24,7 @@ namespace Reposetories
         {
             var user =await myShopDBContext.Users.AddAsync(newUser);
             await myShopDBContext.SaveChangesAsync();
-            return newUser;
+            return user.Entity;
         }
         public async Task<User> getUserToLogin(string Email, string Password)
         {
@@ -46,6 +46,11 @@ namespace Reposetories
         public async Task<User> ValidateUniqueEmail(string email)
         {
             User user = await myShopDBContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return user;
+        }
+        public async Task<User> ValidateUniqueEmailOnUpdate(string email,int id)
+        {
+            User user = await myShopDBContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.UserId !=id);
             return user;
         }
     }

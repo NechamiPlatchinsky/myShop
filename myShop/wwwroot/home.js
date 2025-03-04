@@ -1,13 +1,4 @@
-﻿//const productList = addEventListener("load", async () => {
-//    GetproductList()
-//    GetCategoriesList()
-//    let categoryIdArr = [];
-//    let myCartArr = JSON.parse(sessionStorage.getItem("cart")) || [];
-//    sessionStorage.setItem("categoryIds", JSON.stringify(categoryIdArr))
-//    sessionStorage.setItem("cart", JSON.stringify(myCartArr))
-//    document.querySelector("#ItemsCountText").innerHTML = getItemsCountText(myCartArr);
-//})
-const visibleRegister = () => {
+﻿const visibleRegister = () => {
     const ragisterDiv = document.querySelector(".unVisible")
     ragisterDiv.classList.remove("unVisible")
 } 
@@ -52,22 +43,18 @@ const registerUser = async () => {
             },
             body: JSON.stringify(newUser)
         })
-        const error = responsePost;
+        //const error = responsePost;
         if (responsePost.ok) {
             const dataPost = await responsePost.json();
             console.log('POST Data:', dataPost);
             alert(`hello ${dataPost.firstName}`);
         } else {
-            try {
-                
+            if (responsePost.status == 409 || responsePost.status == 422) {
                 const errorText = await responsePost.text();
-                if (errorText == "week password" || errorText == "User already exists") {
-                    //const errorText = await responsePost.text();
-                    alert(errorText)
-                }
+                alert(errorText)
             }
-            finally { 
-                const errorResponse = await error.json();
+            else  {
+                const errorResponse = await responsePost.json();
                 for (const key in errorResponse.errors) {
                     if (errorResponse.errors.hasOwnProperty(key)) {
                         const errors = errorResponse.errors[key];
@@ -76,14 +63,8 @@ const registerUser = async () => {
                         });
                     }
                 }
-            }
-            
+            } 
         }
-        ////if (responsePost.status == 400)
-        ////    throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")
-        ////if (!responsePost.ok)
-        ////   return alert("משהו השתבש")
-        //    alert("נוסף בהצלחה")
     }
     catch (error) {
         console.log(error)
@@ -97,15 +78,17 @@ const login = async () => {
         return alert("כל השדות חובה");
     }
     try {
-        const responsePost =  await fetch(`api/users/login/?Email=${user.Email}&Password=${user.Password}`, {
+        const responsePost = await fetch(`api/users/login/?Email=${user.Email}&Password=${user.Password}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            query: { Email: user.Email,Password:user.Password }
+            query: { Email: user.Email, Password: user.Password }
         })
-        if (responsePost.status == 204)
-            return alert("משתמש לא מזוהה")
+        if (responsePost.status == 404) {
+            const message = await responsePost.text();
+            alert(message)
+        }
         const dataPost = await responsePost.json();
         sessionStorage.setItem('user', dataPost.userId)
         sessionStorage.setItem('nameUser', dataPost.firstName)
@@ -149,15 +132,22 @@ const updateDitailse = async() => {
             alert(`הפרטים עודכנו במערכת`);
             window.location.href='home.html'
         } else {
-            const errorResponse = await responsePut.json();
-            for (const key in errorResponse.errors) {
-                if (errorResponse.errors.hasOwnProperty(key)) {
-                    const errors = errorResponse.errors[key];
-                    errors.forEach(error => {
-                        alert(error);
-                    });
-                }
+
+            if (responsePut.status == 409 || responsePut.status == 422) {
+                const errorText = await responsePut.text();
+                alert(errorText)
             }
+            else {
+                const errorResponse = await responsePut.json();
+                for (const key in errorResponse.errors) {
+                    if (errorResponse.errors.hasOwnProperty(key)) {
+                        const errors = errorResponse.errors[key];
+                        errors.forEach(error => {
+                            alert(error);
+                        });
+                    }
+                }
+            } 
         }
         //if (responsePut.status == 400)
         //    throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")

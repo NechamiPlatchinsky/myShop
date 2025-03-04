@@ -26,22 +26,17 @@ namespace myShop.Controllers
 
         // GET: api/<CategoryController>
         [HttpGet]
-        public async Task<IEnumerable<CategoryDTO>> Get()
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> Get()
         {
-            //IEnumerable <Category> categories = await categoryServices.getAllCategories();
-            //IEnumerable<CategoryDTO> categoriesDTO = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(categories);
-            //return categoriesDTO;
-
-            if (!_cache.TryGetValue("categories", out IEnumerable<Category> categories1))
+            if (!_cache.TryGetValue("categories", out IEnumerable<Category> categories))
             {
-                categories1 = await categoryServices.getAllCategories();
-                _cache.Set("categories", categories1, TimeSpan.FromMinutes(30));
+                categories = await categoryServices.getAllCategories();
+                _cache.Set("categories", categories, TimeSpan.FromMinutes(30));
             }
-            //List<CategoryDTO> categoryDTOList = _mapper.Map<List<Category>, List<CategoryDTO>>(categories);
-            //return categoryDTOList;
-            //IEnumerable<Category> categories = await categoryServices.getAllCategories();
-            IEnumerable<CategoryDTO> categoriesDTO1 = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(categories1);
-            return categoriesDTO1;
+            IEnumerable<CategoryDTO> categoriesDTO = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(categories);
+            if (categoriesDTO != null)
+                return Ok(categoriesDTO);
+            return NotFound();
 
         }        
     }

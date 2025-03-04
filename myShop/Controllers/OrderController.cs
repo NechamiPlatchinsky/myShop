@@ -20,20 +20,15 @@ namespace myShop.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/<OrderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public async Task<OrderDTO> Get(int id)
+        public async Task<ActionResult<OrderDTO>> Get(int id)
         {
             Order order = await orderService.getOrderById(id);
             OrderDTO orderDTO = _mapper.Map<Order, OrderDTO>(order);
-            return orderDTO;
+            if(orderDTO != null)
+                return Ok(orderDTO);
+            return NotFound();
         }
 
         // POST api/<OrderController>

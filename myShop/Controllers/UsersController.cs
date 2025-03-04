@@ -35,7 +35,7 @@ namespace myShop.Controllers
             User userUniqe = await userServices.ValidateUniqueEmail(newUser.Email);
             if (userUniqe != null)
             {
-                return BadRequest("User already exists");
+                return Conflict("User already exists");
             }
             User user = _mapper.Map<UserDTO,User>(newUser);
             //int num = userServices.checkPassword(newUser.Password);
@@ -46,7 +46,7 @@ namespace myShop.Controllers
             }
             else
             {
-                return BadRequest("week password");
+                return UnprocessableEntity("week password");
             }
 
 
@@ -55,13 +55,13 @@ namespace myShop.Controllers
         //iiii
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult <ReturnUserDTO>> PostLogin([FromQuery] string Email,string Password)//רק ID 
+        public async Task<ActionResult <ReturnUserDTO>> PostLogin([FromQuery] string Email,string Password)
         {
             User user =await userServices.getUserToLogin(Email, Password);
             ReturnUserDTO returnUser = _mapper.Map<User, ReturnUserDTO>(user);
             if(user!=null)
                 return Ok(returnUser);
-            return NoContent();
+            return NotFound("משתמש לא קיים");
         }
 
         [HttpPost]
@@ -75,9 +75,12 @@ namespace myShop.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<string>> Put(int id, [FromBody] UserDTO updateUser)
         {
-
+            User userUniqe = await userServices.ValidateUniqueEmailOnUpdate(updateUser.Email,id);
+            if (userUniqe != null)
+            {
+                return Conflict("User with this username already exists");
+            }
             User user = _mapper.Map<UserDTO, User>(updateUser);
-            int num = userServices.checkPassword(user.Password);
             User user1 = await userServices.updateUser(id, user);
             if (user1!=null)
             {
@@ -85,14 +88,8 @@ namespace myShop.Controllers
             }
             else
             {
-                 return BadRequest("week password");
+                 return UnprocessableEntity("week password");
             }
-
-            
-
-
-        }
-
-        
+        }        
     }
 }
