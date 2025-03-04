@@ -42,7 +42,7 @@ namespace Services
             foreach (var product in newOrder.OrderItems)
             {
                 Product p = await productReposetory.getProductById(Convert.ToInt32(product.ProductId));
-                realOrderSum += (double)p.Price * (double)product.Quantity;
+                realOrderSum += (double)p.Price *  (double)product.Quantity;
             }
             return realOrderSum;
         }
