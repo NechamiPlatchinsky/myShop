@@ -12,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddDbContext<_214416448WebApiContext>(options => options.UseSqlServer("Server=SRV2\\PUPILS;Database=214416448_webApi;Trusted_Connection=True;TrustServerCertificate=True"));
-builder.Services.AddDbContext<_214416448WebApiContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("School")));
+var connectionString = builder.Configuration.GetConnectionString("School");
+builder.Services.AddDbContext<_214416448WebApiContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IUserServices,UserServices>();
 builder.Services.AddScoped<IUserReposetory,UserReposetory>();
 builder.Services.AddScoped<IProductServices, ProductServices>();
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Host.UseNLog();
+builder.Services.AddMemoryCache();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

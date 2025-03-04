@@ -52,7 +52,7 @@ namespace TestMyShop
         public async Task Post_ShouldAddUser_WhenUserIsValid()
         {
             // Arrange
-            var user = new User { Email = "newuser@example.com", Password = "aaaaaaaaaaaaaaaa" };
+            var user = new User { Email = "newuser@example.com", Password = "55555fFFFF@2aaaa", FirstName = "pppp", LastName = "vgfcgfc" };
 
 
             // Act
@@ -70,7 +70,7 @@ namespace TestMyShop
         public async Task Login_ShouldReturnUser_WhenCredentialsAreValid()
         {
             // Arrange
-            var user = new User { Email = "testuser@example.com", Password = "securepassword" };
+            var user = new User { Email = "testuser@example.com", Password = "securepassword", FirstName = "pppp", LastName = "vgfcgfc" };
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 

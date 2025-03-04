@@ -52,20 +52,32 @@ const registerUser = async () => {
             },
             body: JSON.stringify(newUser)
         })
+        const error = responsePost;
         if (responsePost.ok) {
             const dataPost = await responsePost.json();
             console.log('POST Data:', dataPost);
             alert(`hello ${dataPost.firstName}`);
         } else {
-            const errorResponse = await responsePost.json();
-            for (const key in errorResponse.errors) {
-                if (errorResponse.errors.hasOwnProperty(key)) {
-                    const errors = errorResponse.errors[key];
-                    errors.forEach(error => {
-                        alert(error);
-                    });
+            try {
+                
+                const errorText = await responsePost.text();
+                if (errorText == "week password" || errorText == "User already exists") {
+                    //const errorText = await responsePost.text();
+                    alert(errorText)
                 }
             }
+            finally { 
+                const errorResponse = await error.json();
+                for (const key in errorResponse.errors) {
+                    if (errorResponse.errors.hasOwnProperty(key)) {
+                        const errors = errorResponse.errors[key];
+                        errors.forEach(error => {
+                            alert(error);
+                        });
+                    }
+                }
+            }
+            
         }
         ////if (responsePost.status == 400)
         ////    throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")
@@ -98,7 +110,7 @@ const login = async () => {
         sessionStorage.setItem('user', dataPost.userId)
         sessionStorage.setItem('nameUser', dataPost.firstName)
         sessionStorage.setItem("fullUser", JSON.stringify(dataPost))
-        const cart = JSON.parse(sessionStorage.getItem("cart"));
+        const cart = JSON.parse(sessionStorage.getItem("cart"))||[];
          if (cart.length == 0) {
             window.location.href = "Products.html";
             return;
@@ -132,15 +144,27 @@ const updateDitailse = async() => {
             body: JSON.stringify(user)
         })
         
-        //const dataPut = await responsePut.json();
-        //console.log(dataPut)
-        //sessionStorage.setItem('user', dataPost.userId)
-        if (responsePut.status == 400)
-            throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")
-        if (!responsePut.ok)
-            alert("משהו השתבש")
-        else
-            alert("הפרטים עודכנו במערכת ")
+        if (responsePut.ok) {
+            //const dataPut = await responsePut.json();
+            alert(`הפרטים עודכנו במערכת`);
+            window.location.href='home.html'
+        } else {
+            const errorResponse = await responsePut.json();
+            for (const key in errorResponse.errors) {
+                if (errorResponse.errors.hasOwnProperty(key)) {
+                    const errors = errorResponse.errors[key];
+                    errors.forEach(error => {
+                        alert(error);
+                    });
+                }
+            }
+        }
+        //if (responsePut.status == 400)
+        //    throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")
+        //if (!responsePut.ok)
+        //    alert("משהו השתבש")
+        //else
+        //    alert("הפרטים עודכנו במערכת ")
     }
     catch (error) {
         console.log(error)
@@ -175,6 +199,6 @@ const viewLevel = (dataPost) => {
 }
 const update = () => {
     if (sessionStorage.getItem("fullUser") == undefined)
-       return alert("אין אפשרות לשנות פרטים לפני הכניסה")
+        return alert("אין אפשרות לשנות פרטים לפני הכניסה")
     window.location.href='update.html'
 }

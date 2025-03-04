@@ -71,11 +71,16 @@ const ifLogin = () => {
     alert("יש להכנס לפני סגירת הזמנה")
     //sessionStorage.setItem("buy", JSON.stringify("yes"))
         window.location.href = 'home.html';
+        return false;
     }
-    return;
+    return true;
 }
 const placeOrder = () => {
-    ifLogin()
+    if (!ifLogin())
+        return;
+    if (!checkCart())
+        alert("אין מוצרים בעגלה")
+    return window.location.href = "Products.html"
     //generateDate()
     orderPost()
 }
@@ -92,8 +97,17 @@ const getOrderPostObj = () => {
     }
     return objOrderItem;
 }
+const checkCart = () =>
+{
+    const cart = JSON.parse(sessionStorage.getItem("cart"))
+    if (cart.length == 0)
+        return false;
+    return true;
+}
+
 const orderPost =async () => {
     const orderPostObj = getOrderPostObj()
+    
     try {
         const responsePost = await fetch(`api/order/`, {
             method: 'POST',

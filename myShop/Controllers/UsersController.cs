@@ -32,6 +32,11 @@ namespace myShop.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] UserDTO newUser)
         {
+            User userUniqe = await userServices.ValidateUniqueEmail(newUser.Email);
+            if (userUniqe != null)
+            {
+                return BadRequest("User already exists");
+            }
             User user = _mapper.Map<UserDTO,User>(newUser);
             //int num = userServices.checkPassword(newUser.Password);
             User user1= await userServices.addUser(user);

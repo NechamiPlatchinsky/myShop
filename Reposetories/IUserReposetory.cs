@@ -8,5 +8,6 @@ namespace Reposetories
         Task<User> getUserToLogin(string Email, string Password);
         Task<User> updateUser(int id, User updateUser);
         Task<User> getUserById(int id);
+        Task<User> ValidateUniqueEmail(string email);
     }
 }

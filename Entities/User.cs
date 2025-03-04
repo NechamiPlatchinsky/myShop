@@ -8,7 +8,7 @@ public partial class User
 {
     //[Required]
     public int UserId { get; set; }
-    [EmailAddress(ErrorMessage = "כתובת מייל לא תקינה"), Required]
+    [EmailAddress(ErrorMessage = "כתובת מייל לא תקינה"), Required(ErrorMessage = "חובה להכניס מייל")]
     public string Email { get; set; } = null!;
     [Required]
     public string Password { get; set; } = null!;

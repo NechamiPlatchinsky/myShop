@@ -10,6 +10,7 @@ using Zxcvbn;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Services
 {
@@ -65,6 +66,10 @@ namespace Services
         public async Task<User> getUserById(int id)
         {
             return await userReposetory.getUserById(id);
+        }
+        public async Task<User> ValidateUniqueEmail(string email)
+        {
+            return await userReposetory.ValidateUniqueEmail(email);
         }
     }
 }
