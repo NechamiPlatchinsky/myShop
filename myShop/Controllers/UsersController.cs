@@ -38,7 +38,6 @@ namespace myShop.Controllers
                 return Conflict("User already exists");
             }
             User user = _mapper.Map<UserDTO,User>(newUser);
-            //int num = userServices.checkPassword(newUser.Password);
             User user1= await userServices.addUser(user);
             if (user1 != null)
             {

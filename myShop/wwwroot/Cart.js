@@ -69,7 +69,6 @@ const deleteProduct = async (product) => {
 const ifLogin = () => {
     if (JSON.parse(sessionStorage.getItem("user")) == undefined) { 
     alert("יש להכנס לפני סגירת הזמנה")
-    //sessionStorage.setItem("buy", JSON.stringify("yes"))
         window.location.href = 'home.html';
         return false;
     }
@@ -81,7 +80,6 @@ const placeOrder = () => {
     if (!checkCart()) { 
         alert("אין מוצרים בעגלה")
     return window.location.href = "Products.html"}
-    //generateDate()
     orderPost()
 }
 const getOrderPostObj = () => {
@@ -120,17 +118,10 @@ const orderPost =async () => {
         if (dataPost.status == 400) {
             throw("משהו השתבש")
         }
-        /*console.log(dataPost)*/
         alert(" הזמנה מספר" + dataPost.orderId + "✔ בוצעה בהצלחה ")
         removeCart();
-        //sessionStorage.setItem('user', dataPost.userId)
-        //if (!responsePut.ok)
-        //    alert("משהו השתבש")
-        //else
-        //    alert("aaaaaaaaaaaaaaa ")
     }
     catch (error) {
-        //console.log(error)
         alert(error)
 
     }

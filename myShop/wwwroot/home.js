@@ -43,7 +43,6 @@ const registerUser = async () => {
             },
             body: JSON.stringify(newUser)
         })
-        //const error = responsePost;
         if (responsePost.ok) {
             const dataPost = await responsePost.json();
             console.log('POST Data:', dataPost);
@@ -128,7 +127,6 @@ const updateDitailse = async() => {
         })
         
         if (responsePut.ok) {
-            //const dataPut = await responsePut.json();
             alert(`הפרטים עודכנו במערכת`);
             window.location.href='home.html'
         } else {
@@ -149,12 +147,6 @@ const updateDitailse = async() => {
                 }
             } 
         }
-        //if (responsePut.status == 400)
-        //    throw ("משהו השתבש, בדוק את תקינות הדוא''ל והסיסמה")
-        //if (!responsePut.ok)
-        //    alert("משהו השתבש")
-        //else
-        //    alert("הפרטים עודכנו במערכת ")
     }
     catch (error) {
         console.log(error)
@@ -171,12 +163,9 @@ const checkPassword = async() => {
             },
             body: JSON.stringify(password)
         })
-        /*if (responsePost.status == 204)*/
         const dataPost = await responsePost.json();
         console.log(dataPost)
             viewLevel(dataPost)
-
-        /*const dataPost = await responsePost.json();*/
     }
 
     catch (error) {
